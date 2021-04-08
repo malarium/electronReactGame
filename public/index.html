@@ -28,6 +28,7 @@
 	</head>
 	<body>
 		<noscript>You need to enable JavaScript to run this app.</noscript>
+		<audio src="./sounds/musicbox.mp3" id="introMusic"></audio>
 		<div id="root"></div>
 		<!--
       This HTML file is a template.
@@ -44,7 +45,6 @@
 			const rootElement = document.querySelector('body')
 
 			rootElement.addEventListener('keydown', function (e) {
-				console.log(e)
 				e.keyCode === 27
 					? ipcRenderer.send('key-quit', null)
 					: ipcRenderer.send('key-clicked', e.keyCode)
