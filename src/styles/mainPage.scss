@@ -77,6 +77,14 @@ body {
 	background: #000;
 	animation: backgroundFadeIn 2s linear forwards;
 	font-family: typewriter;
+	embed {
+		display: none;
+		&.play {
+			display: block;
+			height: 0;
+			pointer-events: none;
+		}
+	}
 	.buttons {
 		display: flex;
 		width: 100vw;
