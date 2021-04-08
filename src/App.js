@@ -1,25 +1,22 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import './index.css'
 
 function App() {
 	const audioElement = useRef(null)
-	const playSound = () => {
-		console.log(`able to play`)
-		audioElement.current.play()
-	}
-	// useEffect(() => {
-	// 		audioElement.current.play()
-	// }, [])
+	useEffect(() => {
+		audioElement.current.play();
+	}, [])
 	return (
 		<div className="App">
 			<audio
 				ref={audioElement}
 				src="./assets/sounds/musicbox.mp3"
-				crossOrigin="anonymous"
-				onCanPlay={playSound}
+				// src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+				// onCanPlay={playSound}
+				// crossOrigin="anonymous"
 			></audio>
 			<div className="buttons">
-				<p id="start" onClick={playSound}>
+				<p id="start">
 					START
 				</p>
 				<p id="quit">QUIT</p>
