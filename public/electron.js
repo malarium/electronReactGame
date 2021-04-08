@@ -9,7 +9,6 @@ try {
 	require('electron-reloader')(module)
 } catch (_) {}
 
-
 function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 900,
@@ -19,22 +18,22 @@ function createWindow() {
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
-			webSecurity: false
+			webSecurity: false,
 		},
 	})
-	app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
+	app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required')
 	mainWindow.loadURL(
 		isDev
-		? 'http://localhost:3000'
-		: `file://${path.join(__dirname, '../build/index.html')}`
-		)
-		// mainWindow.webContents.sendInputEvent({ type: 'mouseDown', x: 10, y: 10, button: 'right', clickCount: 1 });
-    	// mainWindow.webContents.sendInputEvent({ type: 'mouseUp', x: 10, y: 10, button: 'right', clickCount: 1 });
-		mainWindow.maximize()
-		mainWindow.on('closed', () => (mainWindow = null))
-	}
-	app.on('ready', createWindow)
-	app.on('window-all-closed', () => {
+			? 'http://localhost:3000'
+			: `file://${path.join(__dirname, '../build/index.html')}`
+	)
+	// mainWindow.webContents.sendInputEvent({ type: 'mouseDown', x: 10, y: 10, button: 'right', clickCount: 1 });
+	// mainWindow.webContents.sendInputEvent({ type: 'mouseUp', x: 10, y: 10, button: 'right', clickCount: 1 });
+	mainWindow.maximize()
+	mainWindow.on('closed', () => (mainWindow = null))
+}
+app.on('ready', createWindow)
+app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {
 		app.quit()
 	}
