@@ -19,6 +19,7 @@ function createWindow() {
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
+			webSecurity: false
 		},
 	})
 	app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
