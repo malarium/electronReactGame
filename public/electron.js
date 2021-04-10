@@ -14,20 +14,16 @@ function createWindow() {
 		width: 900,
 		height: 680,
 		frame: false,
-		// acceptFirstMouse: true,
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
 		},
 	})
-	// app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 	mainWindow.loadURL(
 		isDev
 			? 'http://localhost:3000'
 			: `file://${path.join(__dirname, '../build/index.html')}`
 	)
-	// mainWindow.webContents.sendInputEvent({ type: 'mouseDown', x: 10, y: 10, button: 'right', clickCount: 1 });
-	// mainWindow.webContents.sendInputEvent({ type: 'mouseUp', x: 10, y: 10, button: 'right', clickCount: 1 });
 	mainWindow.maximize()
 	mainWindow.on('closed', () => (mainWindow = null))
 }
