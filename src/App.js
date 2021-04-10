@@ -6,7 +6,7 @@ import { Level1 } from './templates/Level1.jsx'
 
 function App() {
 	const [level, setLevel] = useState(0)
-	const [musicSrc, setMusicSrc] = useState(`./sounds/musicbox.mp3`)
+	const [musicSrc, setMusicSrc] = useState(`./sounds/crickets.wav`)
 
 	// access to audio element in root html - only that can play music
 	const musicElement = Array.from(
@@ -28,15 +28,19 @@ function App() {
 	// return to main music motive when on main screen
 	useEffect(() => {
 		if (level === 0) {
-			setMusicSrc('./sounds/musicbox.mp3')
+			setMusicSrc('./sounds/crickets.wav')
 		}
 	}, [level])
 
 	return (
 		<div className="App">
-			<embed className="embed1" src="./sounds/arcade.wav" />
-			<embed className="embed2" src="./sounds/ding.mp3" />
-			<embed className="embed3" src="./sounds/funny.mp3" />
+			<embed className="embed1" src="./sounds/clack.mp3" data-timeout="750" />
+			<embed className="embed2" src="./sounds/ding.mp3" data-timeout="1500" />
+			<embed
+				className="embed3"
+				src="./sounds/door_creak.mp3"
+				data-timeout="1000"
+			/>
 
 			{level === 0 ? (
 				<div className="buttons">

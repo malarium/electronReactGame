@@ -1,1 +1,3 @@
-@import './styles/compiled/mainPage.css';
+@import './styles/compiled/general.min.css';
+@import './styles/compiled/mainPage.min.css';
+@import './styles/compiled/level1.min.css';
