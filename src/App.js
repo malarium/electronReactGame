@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './index.css'
+// import { soundFromEmbed } from './scripts/soundFromEmbed'
+import { Controls } from './templates/Controls.jsx'
+import { Level1 } from './templates/Level1.jsx'
 
 function App() {
 	const [level, setLevel] = useState(0)
@@ -22,63 +25,49 @@ function App() {
 		musicElement.play()
 	}, [musicSrc])
 
-	/***  This is a hack I am proud of: CSS can play sounds by <embed> elements. It happens when they change display value from none to block. However it only plays once, so to achieve repeated sound (of clicks, door opened etc) - we clone embed, destroy it after sound has ended and append the clone to the root app, to be reused.*/
+	// return to main music motive when on main screen
+	useEffect(() => {
+		if (level === 0) {
+			setMusicSrc('./sounds/musicbox.mp3')
+		}
+	}, [level])
 
-	/***  Here embeds are identified by their numbers (their classNames must be equivalent: embed nr 1 has class `embed1`) */
-	function soundFromEmbed(nr, timeout) {
-		const currentEmbed = Array.from(document.querySelectorAll(`.embed${nr}`))
-		const currentSrc = currentEmbed[0].src
-		currentEmbed[0].classList.add(`play`)
-		setTimeout(() => {
-			const appContainer = document.querySelector(`.App`)
-			currentEmbed.forEach((em) => em.remove())
-			const embedClone = document.createElement(`embed`)
-			embedClone.src = currentSrc
-			embedClone.classList.add(`embed${nr}`)
-			appContainer.appendChild(embedClone)
-		}, timeout)
-	}
 	return (
 		<div className="App">
 			<embed className="embed1" src="./sounds/arcade.wav" />
 			<embed className="embed2" src="./sounds/ding.mp3" />
+			<embed className="embed3" src="./sounds/funny.mp3" />
+
 			{level === 0 ? (
 				<div className="buttons">
 					<p
-						id="start"
 						onClick={() => {
-							soundFromEmbed(1, 1500)
+							document
+								.querySelector('body')
+								.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 27 }))
 						}}
 					>
-						HAPPY
+						QUIT
 					</p>
 					<p
-						id="quit"
 						onClick={() => {
-							soundFromEmbed(2, 2500)
+							setLevel(100)
 						}}
 					>
-						LITTLE
+						CONTROLS
 					</p>
 					<p
-						id="full"
 						onClick={() => {
 							setLevel(1)
-							setMusicSrc(`./sounds/crickets.wav`)
 						}}
 					>
-						PEACH
+						PLAY
 					</p>
 				</div>
+			) : level === 1 ? (
+				<Level1 setLevel={setLevel} setMusicSrc={setMusicSrc} />
 			) : (
-				<h1
-					onClick={() => {
-						setLevel(0)
-						setMusicSrc(`./sounds/musicbox.mp3`)
-					}}
-				>
-					LEVEL2
-				</h1>
+				<Controls setLevel={setLevel} setMusicSrc={setMusicSrc} />
 			)}
 		</div>
 	)
