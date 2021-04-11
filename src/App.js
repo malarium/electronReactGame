@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import './index.css'
-// import { soundFromEmbed } from './scripts/soundFromEmbed'
+import { soundFromEmbed } from './scripts/soundFromEmbed'
 import { Controls } from './templates/Controls.jsx'
 import { Level1 } from './templates/Level1.jsx'
+import { Inventory } from './templates/Inventory.jsx'
+import { setCursorImg } from './scripts/setCursorImg'
 
 function App() {
 	const [level, setLevel] = useState(0)
+	const [inventory, setInventory] = useState([
+		{ name: `Medicine`, img: `medicine.png`, data: {} },
+		{ name: `Rope`, img: `rope.png`, data: {} },
+		{ name: `Rolling pin`, img: `rollingPin.png`, data: {} },
+		{},
+		{},
+	])
+	const [currentInventoryItem, setCurrentInventoryItem] = useState({})
 	const [musicSrc, setMusicSrc] = useState(`./sounds/crickets.wav`)
+	let inventoryElement
 
 	// access to audio element in root html - only that can play music
 	const musicElement = Array.from(
@@ -16,6 +27,7 @@ function App() {
 	// initial scripts start
 	useEffect(() => {
 		musicElement.play()
+		inventoryElement = document.querySelector('.inventory')
 	})
 
 	// change sound source and play - different background music fo every level
@@ -25,12 +37,46 @@ function App() {
 		musicElement.play()
 	}, [musicSrc])
 
+	useEffect(() => {
+		if (currentInventoryItem.img) {
+			setCursorImg(currentInventoryItem.name)
+		} else {
+			setCursorImg('')
+		}
+	}, [currentInventoryItem])
+
 	// return to main music motive when on main screen
 	useEffect(() => {
 		if (level === 0) {
 			setMusicSrc('./sounds/crickets.wav')
 		}
+		if (level === 0 || level === 100) {
+			// eslint-disable-next-line no-unused-expressions
+			inventoryElement.classList.contains(`showInventory`)
+				? toggleInventoryVisibility()
+				: null
+		}
 	}, [level])
+
+	const toggleInventoryVisibility = () => {
+		setCursorImg('')
+		inventoryElement.classList.toggle('showInventory')
+		soundFromEmbed(5)
+	}
+
+	const removeItemFromInventory = () => {
+		const newInventory = []
+		Array.from(inventory).map((el) => {
+			if (el.name === currentInventoryItem.name) {
+				el = {}
+			}
+			newInventory.push(el)
+		})
+		setInventory(newInventory)
+		console.log(currentInventoryItem)
+		setCurrentInventoryItem({})
+		console.log(currentInventoryItem)
+	}
 
 	return (
 		<div className="App">
@@ -40,6 +86,16 @@ function App() {
 				className="embed3"
 				src="./sounds/door_creak.mp3"
 				data-timeout="1000"
+			/>
+			<embed
+				className="embed4"
+				src="./sounds/emptyInv.mp3"
+				data-timeout="500"
+			/>
+			<embed
+				className="embed5"
+				src="./sounds/invToggle.mp3"
+				data-timeout="500"
 			/>
 
 			{level === 0 ? (
@@ -69,10 +125,25 @@ function App() {
 					</p>
 				</div>
 			) : level === 1 ? (
-				<Level1 setLevel={setLevel} setMusicSrc={setMusicSrc} />
+				<Level1
+					setLevel={setLevel}
+					setMusicSrc={setMusicSrc}
+					currentInventoryItem={currentInventoryItem}
+					removeItemFromInventory={removeItemFromInventory}
+				/>
 			) : (
 				<Controls setLevel={setLevel} setMusicSrc={setMusicSrc} />
 			)}
+			<Inventory
+				inventory={inventory}
+				currentInventoryItem={currentInventoryItem}
+				setCurrentInventoryItem={setCurrentInventoryItem}
+			/>
+			{level > 0 && level < 100 ? (
+				<div className="toggleInventory" onClick={toggleInventoryVisibility}>
+					i
+				</div>
+			) : null}
 		</div>
 	)
 }

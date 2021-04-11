@@ -1,0 +1,11 @@
+.App {
+    &.medicine {
+        cursor: url('../../assets/images/cursors/medicine-cursor.png'), default;
+    }
+    &.rope {
+        cursor: url('../../assets/images/cursors/rope-cursor.png'), default;
+    }
+    &.rollingpin {
+        cursor: url('../../assets/images/cursors/rollingPin-cursor.png'), default;
+    }
+}
