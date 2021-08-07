@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './index.css'
 import { soundFromEmbed } from './scripts/soundFromEmbed'
 import { Controls } from './templates/Controls.jsx'
@@ -15,20 +15,33 @@ function App() {
 		{},
 		{},
 	])
-	const [currentInventoryItem, setCurrentInventoryItem] = useState({})
-	const [musicSrc, setMusicSrc] = useState(`./sounds/crickets.wav`)
-	let inventoryElement
+	const [currentInventoryItem, setCurrentInventoryItem] = useState({});
+	const [musicSrc, setMusicSrc] = useState(`./sounds/crickets.wav`);
+	const [keyPressed, setKeyPressed] = useState();
+	const [clickOccurred, setClickOccurred] = useState();
+	const mainAppRef = useRef();
+	let inventoryElement;
 
 	// access to audio element in root html - only that can play music
 	const musicElement = Array.from(
 		document.querySelector(`#root`).parentNode.children
-	).find((el) => el.id === 'introMusic')
+	).find((el) => el.id === 'introMusic');
 
 	// initial scripts start
 	useEffect(() => {
-		musicElement.play()
-		inventoryElement = document.querySelector('.inventory')
+		musicElement.play();
+		inventoryElement = document.querySelector('.inventory');
+		mainAppRef.current.addEventListener(`click`, setClickOccurred);
+		mainAppRef.current.parentNode.parentNode.addEventListener(`keypress`, setKeyPressed)
 	})
+
+	useEffect(() => {
+		keyAction(keyPressed);
+	}, [keyPressed])
+
+	useEffect(() => {
+		mouseAction(clickOccurred)
+	}, [clickOccurred])
 
 	// change sound source and play - different background music fo every level
 	useEffect(() => {
@@ -58,6 +71,16 @@ function App() {
 		}
 	}, [level])
 
+	const keyAction = (e) => {
+		console.log(`Key was pressed: `, e.code)
+		if(e.code === `Space` && level > 0 && level < 100) {
+			toggleInventoryVisibility()
+		}
+	}
+	const mouseAction = (e) => {
+		console.log(`Mouse was clicked on: `, e.target)
+	}
+
 	const toggleInventoryVisibility = () => {
 		setCursorImg('')
 		inventoryElement.classList.toggle('showInventory')
@@ -66,7 +89,7 @@ function App() {
 
 	const removeItemFromInventory = () => {
 		const newInventory = []
-		Array.from(inventory).map((el) => {
+		Array.from(inventory).forEach((el) => {
 			if (el.name === currentInventoryItem.name) {
 				el = {}
 			}
@@ -79,7 +102,7 @@ function App() {
 	}
 
 	return (
-		<div className="App">
+		<div className="App" ref={mainAppRef}>
 			<embed className="embed1" src="./sounds/clack.mp3" data-timeout="750" />
 			<embed className="embed2" src="./sounds/ding.mp3" data-timeout="1500" />
 			<embed
