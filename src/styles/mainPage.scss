@@ -1,70 +1,70 @@
-@keyframes backgroundFadeIn {
-	0% {
-		background: #000000;
-	}
-	100% {
-		background: #8b2f2f;
-	}
-}
+// @keyframes backgroundFadeIn {
+// 	0% {
+// 		background: #000000;
+// 	}
+// 	100% {
+// 		background: #8b2f2f;
+// 	}
+// }
 
-@keyframes glitch1 {
-	0% {
-		opacity: 0;
-	}
-	89% {
-		opacity: 0;
-	}
-	90% {
-		opacity: 1;
-	}
-	90.4% {
-		opacity: 0;
-	}
-}
-@keyframes glitch2 {
-	0% {
-		opacity: 0;
-	}
-	59% {
-		opacity: 0;
-	}
-	60% {
-		opacity: 1;
-	}
-	60.4% {
-		opacity: 0;
-	}
-}
-@keyframes glitch3 {
-	0% {
-		opacity: 0;
-		transform: rotate(0);
-	}
-	59% {
-		opacity: 0;
-		transform: rotate(0);
-	}
-	60% {
-		opacity: 1;
-		transform: rotate(0);
-	}
-	60.4% {
-		opacity: 0;
-		transform: rotate(0);
-	}
-	78% {
-		opacity: 0;
-		transform: rotate(180deg);
-	}
-	78.4% {
-		opacity: 1;
-		transform: rotate(0);
-	}
-	78.9% {
-		opacity: 0;
-		transform: rotate(180deg);
-	}
-}
+// @keyframes glitch1 {
+// 	0% {
+// 		opacity: 0;
+// 	}
+// 	89% {
+// 		opacity: 0;
+// 	}
+// 	90% {
+// 		opacity: 1;
+// 	}
+// 	90.4% {
+// 		opacity: 0;
+// 	}
+// }
+// @keyframes glitch2 {
+// 	0% {
+// 		opacity: 0;
+// 	}
+// 	59% {
+// 		opacity: 0;
+// 	}
+// 	60% {
+// 		opacity: 1;
+// 	}
+// 	60.4% {
+// 		opacity: 0;
+// 	}
+// }
+// @keyframes glitch3 {
+// 	0% {
+// 		opacity: 0;
+// 		transform: rotate(0);
+// 	}
+// 	59% {
+// 		opacity: 0;
+// 		transform: rotate(0);
+// 	}
+// 	60% {
+// 		opacity: 1;
+// 		transform: rotate(0);
+// 	}
+// 	60.4% {
+// 		opacity: 0;
+// 		transform: rotate(0);
+// 	}
+// 	78% {
+// 		opacity: 0;
+// 		transform: rotate(180deg);
+// 	}
+// 	78.4% {
+// 		opacity: 1;
+// 		transform: rotate(0);
+// 	}
+// 	78.9% {
+// 		opacity: 0;
+// 		transform: rotate(180deg);
+// 	}
+// }
 
 @font-face {
 	font-family: typewriter;
@@ -73,6 +73,7 @@
 
 body {
 	background: #000;
+	color: white;
 	animation: backgroundFadeIn 2s linear forwards;
 	font-family: typewriter;
 	embed {
@@ -83,56 +84,56 @@ body {
 			pointer-events: none;
 		}
 	}
-	.buttons {
-		display: flex;
-		width: 100vw;
-		height: 100vh;
-		background-image: url('../../assets/images/branches.svg');
-		background-repeat: no-repeat;
-		background-size: cover;
-		p {
-			margin: auto;
-			font-size: 3.5rem;
-			position: relative;
-			&:first-of-type {
-				&:after {
-					content: 'PLEASE HELP';
-					display: block;
-					position: absolute;
-					left: 0;
-					top: 0;
-					width: 100%;
-					height: 100%;
-					opacity: 0;
-					animation: glitch1 7s linear 2s infinite;
-				}
-			}
-			&:last-of-type {
-				&:after {
-					content: 'PLEASE';
-					display: block;
-					position: absolute;
-					left: 0;
-					top: 0;
-					width: 100%;
-					height: 100%;
-					opacity: 0;
-					animation: glitch2 8s linear 2s infinite;
-				}
-			}
-			&:nth-of-type(2) {
-				&:after {
-					content: 'HELP ME!';
-					display: block;
-					position: absolute;
-					left: 0;
-					top: 0;
-					width: 100%;
-					height: 100%;
-					opacity: 0;
-					animation: glitch3 7.5s linear 2s infinite;
-				}
-			}
-		}
-	}
+	// .buttons {
+	// 	display: flex;
+	// 	width: 100vw;
+	// 	height: 100vh;
+	// 	background-image: url('../../assets/images/branches.svg');
+	// 	background-repeat: no-repeat;
+	// 	background-size: cover;
+	// 	p {
+	// 		margin: auto;
+	// 		font-size: 3.5rem;
+	// 		position: relative;
+	// 		&:first-of-type {
+	// 			&:after {
+	// 				content: 'PLEASE HELP';
+	// 				display: block;
+	// 				position: absolute;
+	// 				left: 0;
+	// 				top: 0;
+	// 				width: 100%;
+	// 				height: 100%;
+	// 				opacity: 0;
+	// 				animation: glitch1 7s linear 2s infinite;
+	// 			}
+	// 		}
+	// 		&:last-of-type {
+	// 			&:after {
+	// 				content: 'PLEASE';
+	// 				display: block;
+	// 				position: absolute;
+	// 				left: 0;
+	// 				top: 0;
+	// 				width: 100%;
+	// 				height: 100%;
+	// 				opacity: 0;
+	// 				animation: glitch2 8s linear 2s infinite;
+	// 			}
+	// 		}
+	// 		&:nth-of-type(2) {
+	// 			&:after {
+	// 				content: 'HELP ME!';
+	// 				display: block;
+	// 				position: absolute;
+	// 				left: 0;
+	// 				top: 0;
+	// 				width: 100%;
+	// 				height: 100%;
+	// 				opacity: 0;
+	// 				animation: glitch3 7.5s linear 2s infinite;
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
